@@ -1,0 +1,4 @@
+#ifndef PROCESSFILE_H
+#define PROCESSFILE_H
+
+#endif // PROCESSFILE_H
