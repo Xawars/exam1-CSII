@@ -1,4 +1,5 @@
 #include "ProcessFile.h"
+#include "CoursesInformation.h"
 #include "Utils.h"
 
 void run_program() {
@@ -65,8 +66,8 @@ void run_program() {
         cout << "\t" << ids[i] << "," << names[i] << endl;
     }
 
-    cout << "\n\t" << "Ingrese el ID del estudiante con el que se va a gestionar "
-            "las jornadas de estudio: ";
+    cout << "\n\t" << "Ingrese el ID del estudiante con el que se va"
+            " a gestionar las jornadas de estudio: ";
     int input_id;
     cin >> input_id;
 
@@ -90,5 +91,41 @@ void run_program() {
         delete[] names[i];
     }
     delete[] names;
+
+    char subject_file_name[20];
+    sprintf(subject_file_name, "%d", input_id);
+    ifstream subject_file(subject_file_name);
+
+    if (!subject_file) {
+        cerr << "No se pudo abrir el archivo de materias." << endl;
+        return;
+    }
+
+    cout << "\nSus materias matriculadas en el semestre son:\n" << endl;
+
+    ofstream temp_file("temp.txt");
+    if (!temp_file) {
+        cerr << "No se pudo crear el archivo temporal." << endl;
+        return;
+    }
+
+    char subject_line[100];
+    while (subject_file.getline(subject_line, 100)) {
+        long long code;
+        char subject_name[100];
+        int credits, theory_hours, practice_hours;
+
+        parse_subject_line(subject_line, code, subject_name, credits, theory_hours, practice_hours);
+        int independent_study_hours = calculate_hti(credits, theory_hours, practice_hours);
+
+        cout << code << "," << subject_name << "," << credits << "," << theory_hours << "," << practice_hours << ",HTI:" << independent_study_hours << endl;
+        temp_file << code << "," << subject_name << "," << credits << "," << theory_hours << "," << practice_hours << ",HTI:" << independent_study_hours << endl;
+    }
+    subject_file.close();
+    temp_file.close();
+
+    remove(subject_file_name);
+    rename("temp.txt", subject_file_name);
+
 }
 
