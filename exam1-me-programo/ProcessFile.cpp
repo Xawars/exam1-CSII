@@ -16,32 +16,7 @@ void run_program() {
     int num_students = 0;
     int max_line_length = 0;
     int max_name_length = 0;
-//    char c;
-//    int line_length = 0;
-//    int name_length = 0;
-//    bool in_name = false;
-//    while (file.get(c)) {
-//        line_length++;
-//        if (in_name) {
-//            name_length++;
-//        }
-//        if (c == ',') {
-//            in_name = true;
-//        }
-//        if (c == '\n') {
-//            num_students++;
-//            max_line_length = max(max_line_length, line_length);
-//            max_name_length = max(max_name_length, name_length);
-//            line_length = 0;
-//            name_length = 0;
-//            in_name = false;
-//        }
-//    }
-//    num_students++; // Para contar la última línea se agrega 1
-//    max_line_length = max(max_line_length, line_length);
-//    max_name_length = max(max_name_length, name_length);
-//    file.clear(); // Limpiar el estado del archivo
-//    file.seekg(0); // Devolver el cursor al inicio del archivo
+
     calculate_sizes(file, num_students, max_line_length, max_name_length);
 
     char *line = new char[max_line_length + 1]; // Se agrega 1 para el '\0'
