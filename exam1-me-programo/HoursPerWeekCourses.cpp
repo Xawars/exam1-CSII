@@ -54,8 +54,8 @@ void schedule_courses(int student_id) {
                                               practice_hours];
         int assigned_schedule_size = 0;
 
-        cout << "Asignando horario para " << subject_name << " (Teoría: " <<
-            theory_hours << " horas, Práctica: " << practice_hours <<
+        cout << "Asignando horario para " << subject_name << " (Teoría: "
+             <<theory_hours << " horas, Práctica: " << practice_hours <<
             " horas):" << endl;
 
         int remaining_theory_hours = theory_hours;
@@ -72,11 +72,14 @@ void schedule_courses(int student_id) {
             cin >> day_time_slot;
 
             if (is_time_slot_available(day_time_slot,
-                                       const_cast<const char**>(assigned_schedule),
+                                       const_cast<const char**>
+                                       (assigned_schedule),
                                        assigned_schedule_size)) {
-                char *new_time_slot = new char[custom_strlen(day_time_slot)+1];
+                char *new_time_slot =
+                    new char[custom_strlen(day_time_slot)+1];
                 custom_strcpy(new_time_slot, day_time_slot);
-                assigned_schedule[assigned_schedule_size++] = new_time_slot;
+                assigned_schedule[assigned_schedule_size++] =
+                    new_time_slot;
 
                 if (remaining_theory_hours > 0) {
                     remaining_theory_hours -= 2;

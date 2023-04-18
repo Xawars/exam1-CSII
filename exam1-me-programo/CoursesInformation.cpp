@@ -6,10 +6,15 @@
 using namespace std;
 
 int calculate_hti(int credits, int theory_hours, int practice_hours) {
-    int total_hours = 48 * credits;
-    int class_hours = theory_hours + practice_hours;
-    int independent_study_hours = total_hours / 16 - class_hours;
-    return independent_study_hours;
+    if (credits > 1) {
+        int total_hours = 48 * credits;
+        int class_hours = theory_hours + practice_hours;
+        int indepenpent_study_hours = total_hours / 16 - class_hours;
+        return indepenpent_study_hours;
+    } else {
+        int independent_study_hours = 0;
+        return independent_study_hours;
+    }
 }
 
 void parse_subject_line(const char *line, long long &code,
@@ -48,7 +53,8 @@ void parse_subject_line(const char *line, long long &code,
 
     // Extraer las horas de práctica
     practice_hours = 0;
-    for (; line[i] != ',' && line[i] != '\0'; i++) { // Añadir comprobación adicional
+    for (; line[i] != ',' && line[i] != '\0'; i++) { // Añadir comprobación
+        // adicional
         practice_hours = practice_hours * 10 + (line[i] - '0');
     }
 }
@@ -63,7 +69,8 @@ void display_courses(int input_id) {
         return;
     }
 
-    cout << "\t" << "\t\nSus materias matriculadas en el semestre son:\n" << endl;
+    cout << "\t" << "\t\nSus materias matriculadas en el semestre son:\n"
+         << endl;
 
     ofstream temp_file("temp.txt");
     if (!temp_file) {
