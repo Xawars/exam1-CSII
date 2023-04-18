@@ -12,5 +12,7 @@ void calculate_sizes(ifstream &file, int &num_elements, int &max_line_length,
 int custom_strlen(const char *str);
 void custom_strcpy(char *destination, const char *source);
 int custom_strcmp(const char *str1, const char *str2);
+void custom_strcat(char *destination, const char *source);
+int custom_sizeof_array(const char *arr);
 
 #endif // UTILS_H

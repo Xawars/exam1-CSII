@@ -100,3 +100,21 @@ int custom_strcmp(const char *str1, const char *str2) {
     }
     return str1[i] - str2[i];
 }
+
+void custom_strcat(char *destination, const char *source) {
+    int dest_length = custom_strlen(destination);
+    int i = 0;
+    while (source[i] != '\0') {
+        destination[dest_length + i] = source[i];
+        i++;
+    }
+    destination[dest_length + i] = '\0';
+}
+
+int custom_sizeof_array(const char *arr) {
+    int size = 0;
+    while (arr[size] != '\0') {
+        size++;
+    }
+    return size + 1;
+}

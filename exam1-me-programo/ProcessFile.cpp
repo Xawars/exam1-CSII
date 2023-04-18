@@ -1,5 +1,6 @@
 #include "ProcessFile.h"
 #include "CoursesInformation.h"
+#include "HoursPerWeekCourses.h"
 #include "Utils.h"
 
 void run_program() {
@@ -69,5 +70,6 @@ void run_program() {
     delete[] names;
 
     display_courses(input_id);
+    schedule_courses(input_id);
 }
 
