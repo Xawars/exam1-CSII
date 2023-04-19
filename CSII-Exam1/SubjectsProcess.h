@@ -8,4 +8,5 @@ bool getSubjectDetails(const char *code, char *subjectDetails,
                        int &subjectCredits);
 void enrollSubjects(const char *id);
 
+
 #endif // SUBJECTSPROCESS_H

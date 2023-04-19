@@ -14,7 +14,8 @@ void displaySubjects(char *name) {
         cout << "\n\tLista de materias disponibles:\n\n";
         cout << "Código,Nombre,Créditos,Horas teoría,"
                 "Horas práctica,Horario disponible" << endl;
-                    cout << "-----------------------------------------------------------"
+                    cout << "-------------------------------"
+                "----------------------------"
                 "----------"
              << endl;
 
@@ -65,8 +66,32 @@ void enrollSubjects(const char *id) {
                 ofstream file(id, ios::app);
 
                 if (file.is_open()) {
-                    file << subjectDetails << endl;
-                    customStrcat(enrolledSubjects, subjectDetails);
+                    //file << subjectDetails << endl;
+                    char modifiedSubjectDetails[bufferSize];
+                    customStrcpy(modifiedSubjectDetails, subjectCode);
+                    customStrcat(modifiedSubjectDetails, ",");
+
+                    int commaCount = 0;
+                    int srcIndex = 0;
+                    int destIndex = customStrlen(modifiedSubjectDetails);
+                    while (subjectDetails[srcIndex] != '\0') {
+                        if (subjectDetails[srcIndex] == ',') {
+                            commaCount++;
+                        }
+
+                        // Copia la cadena hasta la segunda coma
+                        if (commaCount < 1 || commaCount >= 4) {
+                            modifiedSubjectDetails[destIndex++] =
+                                subjectDetails[srcIndex];
+                        }
+                        srcIndex++;
+                    }
+
+                    modifiedSubjectDetails[destIndex] = '\0';
+                    //customStrcat(modifiedSubjectDetails, subjectDetails);
+
+                    file << modifiedSubjectDetails << endl;
+                    customStrcat(enrolledSubjects, modifiedSubjectDetails);
                     customStrcat(enrolledSubjects, "\n");
                     file.close();
                 } else {
@@ -82,9 +107,10 @@ void enrollSubjects(const char *id) {
                 if (totalCredits >= 8) {
                     do {
                         cout << "\t¿Deseas matricular otra materia? (S/N): ";
-                        cin >> decision;
+                                cin >> decision;
 
                         // Limpiar el búfer
+
                         while (cin.get() != '\n');
                     } while (decision != 'S' && decision != 's' &&
                              decision != 'N' && decision != 'n');
@@ -97,7 +123,7 @@ void enrollSubjects(const char *id) {
                 cout << "Matricular esta materia excedería el "
                         "límite de 16 créditos. "
                      << "Se terminará el proceso de matrícula." << endl;
-                finished = true;
+                            finished = true;
             }
         } else {
             cout << "No se ha encontrado la materia con el código ingresado."
@@ -146,4 +172,3 @@ bool getSubjectDetails(const char *code, char *subjectDetails,
 
     return false;
 }
-
