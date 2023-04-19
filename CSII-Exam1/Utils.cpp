@@ -67,3 +67,13 @@ int customStrlen(const char *str) {
     }
     return length;
 }
+
+bool compareSubjectCodes(const char *code1, const char *code2) {
+    for (int i = 0; code1[i] != '\0' && code1[i] != ',' && code2[i] != '\0'
+                    && code2[i] != ','; i++) {
+        if (code1[i] != code2[i]) {
+            return false;
+        }
+    }
+    return true;
+}

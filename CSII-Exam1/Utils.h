@@ -9,4 +9,6 @@ void customStrcat(char *destination, const char *source);
 void customStrcpy(char *destination, const char *source);
 int customStrlen(const char *str);
 
+bool compareSubjectCodes(const char *code1, const char *code2);
+
 #endif // UTILS_H
