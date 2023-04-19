@@ -1,9 +1,10 @@
 #include <iostream>
+#include "ProcessFile.h"
 
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    runProgram();
     return 0;
 }
