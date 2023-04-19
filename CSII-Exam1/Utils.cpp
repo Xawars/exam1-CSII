@@ -30,3 +30,29 @@ bool stringCompare(const char *str1, const char *str2) {
     }
     return *str1 == *str2;
 }
+
+void customStrcat(char *destination, const char *source) {
+    int destIndex = 0;
+
+    // Encuentra el final de la cadena destino
+    while (destination[destIndex] != '\0') {
+        destIndex++;
+    }
+
+    // Copia la cadena de origen al final de la cadena de destino
+    int srcIndex = 0;
+    while (source[srcIndex] != '\0') {
+        destination[destIndex] = source[srcIndex];
+        destIndex++;
+        srcIndex++;
+    }
+
+    // Asegura que la cadena resultante tenga un carácter nulo al final
+    destination[destIndex] = '\0';
+}
+
+
+
+
+
+

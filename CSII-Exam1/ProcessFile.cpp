@@ -33,17 +33,18 @@ void runProgram() {
         }
         addStudent(id, name);
         displaySubjects(name);
+        enrollSubjects(id);
     } else {
         system("clear");
         cout << "\n\tBienvenid@ " << name << endl;
 
         do {
             cout << "\nSeleccione una opción:\n";
-                cout << "1. Ver mi matricula\n";
+            cout << "1. Ver mi matricula\n";
             cout << "2. Ver mis jornadas de estudio\n";
             cout << "3. Salir del programa\n";
             cout << "Opción: ";
-                    cin >> option;
+            cin >> option;
 
             switch (option) {
             case 1:
@@ -64,5 +65,5 @@ void runProgram() {
 
     delete[] id;
     delete[] name;
-
 }
+

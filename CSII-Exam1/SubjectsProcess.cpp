@@ -1,4 +1,5 @@
 #include "SubjectsProcess.h"
+#include "Utils.h"
 #include <iostream>
 #include <fstream>
 
@@ -40,3 +41,109 @@ void displaySubjects(char *name) {
         cerr << "Error al abrir el archivo de subjects" << endl;
     }
 }
+
+void enrollSubjects(const char *id) {
+    const int bufferSize = 100;
+    char subjectCode[10];
+    char enrolledSubjects[1000] = "";
+    int totalCredits = 0;
+    bool finished = false;
+
+    while (!finished) {
+        cout << "\n\t¿Qué materias desea matricular?, ingrese el código: ";
+        cin >> subjectCode;
+
+        char subjectDetails[bufferSize];
+        int subjectCredits = 0;
+
+        if (getSubjectDetails(subjectCode, subjectDetails,
+                              subjectCredits)){
+            if (totalCredits + subjectCredits <= 16) {
+
+                totalCredits += subjectCredits;
+
+                ofstream file(id, ios::app);
+
+                if (file.is_open()) {
+                    file << subjectDetails << endl;
+                    customStrcat(enrolledSubjects, subjectDetails);
+                    customStrcat(enrolledSubjects, "\n");
+                    file.close();
+                } else {
+                    cerr << "Error al abrir el archivo " << id << endl;
+                }
+
+                cout << "\n\tMaterias matriculadas:" << endl;
+                cout << enrolledSubjects << endl;
+                cout << "\tCréditos matriculados: " << totalCredits << endl;
+
+
+                char decision;
+                if (totalCredits >= 8) {
+                    do {
+                        cout << "\t¿Deseas matricular otra materia? (S/N): ";
+                        cin >> decision;
+
+                        // Limpiar el búfer
+                        while (cin.get() != '\n');
+                    } while (decision != 'S' && decision != 's' &&
+                             decision != 'N' && decision != 'n');
+
+                    if (decision == 'N' || decision == 'n') {
+                        finished = true;
+                    }
+                }
+            } else {
+                cout << "Matricular esta materia excedería el "
+                        "límite de 16 créditos. "
+                     << "Se terminará el proceso de matrícula." << endl;
+                finished = true;
+            }
+        } else {
+            cout << "No se ha encontrado la materia con el código ingresado."
+                    " Por favor, intente nuevamente." << endl;
+        }
+    }
+}
+
+
+bool getSubjectDetails(const char *code, char *subjectDetails,
+                       int &subjectCredits) {
+    ifstream file("subjects");
+
+    if (file.is_open()) {
+        char currentCode[10];
+        while (!file.eof()) {
+            file.getline(currentCode, 10, ',');
+            file.getline(subjectDetails, 100, '\n');
+
+            if (stringCompare(currentCode, code)) {
+                // Obtener los créditos de la materia
+                int commaCount = 0;
+                for (int i = 0; subjectDetails[i] != '\0'; i++) {
+                    if (subjectDetails[i] == ',') {
+                        commaCount++;
+                        if (commaCount == 2) {
+                            subjectCredits = 0;
+                            for (int j = i + 1; subjectDetails[j] != ',';
+                                 j++) {
+                                subjectCredits = subjectCredits * 10 +
+                                                 (subjectDetails[j] - '0');
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                file.close();
+                return true;
+            }
+        }
+        file.close();
+    } else {
+        cerr << "Error al abrir el archivo de subjects" << endl;
+    }
+
+    return false;
+}
+
