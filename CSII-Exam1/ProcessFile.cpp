@@ -3,6 +3,10 @@
 #include "SubjectsProcess.h"
 #include "HTIProcess.h"
 #include "Utils.h"
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 void runProgram() {
     cout << "\n\tSISTEMA DE MATRICULA 2023-2\n" << endl;
