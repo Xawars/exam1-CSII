@@ -51,10 +51,14 @@ void runProgram() {
 
             switch (option) {
             case 1:
-                // Implementar función para ver matrícula
+                system("clear");
+                cout << "\n\tEstudiante: " << name << endl;
+                displayEnrollment(id);
                 break;
             case 2:
-                // Implementar función para ver jornadas de estudio
+                system("clear");
+                cout << "\n\tEstudiante: " << name << endl;
+                displayStudySessions(id);
                 break;
             case 3:
                 cout << "Saliendo del programa..." << endl;
@@ -70,3 +74,41 @@ void runProgram() {
     delete[] name;
 }
 
+
+void displayEnrollment(const char *id) {
+    ifstream file(id);
+
+    if (file.is_open()) {
+        cout << "\n\tMaterias matriculadas:\n";
+
+        char line[100];
+        while(file.getline(line, 100)) {
+            cout << line << endl;
+        }
+
+        file.close();
+    } else {
+        cerr << "Error al abrir el archivo " << id << endl;
+    }
+}
+
+void displayStudySessions(const char *id) {
+    char fileName[50];
+    customStrcpy(fileName, id);
+    customStrcat(fileName, "_HTI");
+
+    ifstream file(fileName);
+
+    if (file.is_open()) {
+        cout << "\n\tJornadas de estudio:\n";
+
+        char line[100];
+        while (file.getline(line, 100)) {
+            cout << line << endl;
+        }
+
+        file.close();
+    } else {
+        cerr << "Error al abrir el archivo " << fileName << endl;
+    }
+}
