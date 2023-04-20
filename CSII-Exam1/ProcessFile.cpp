@@ -1,6 +1,7 @@
 #include "ProcessFile.h"
 #include "StudentsProcess.h"
 #include "SubjectsProcess.h"
+#include "HTIProcess.h"
 #include "Utils.h"
 
 void runProgram() {
@@ -33,7 +34,9 @@ void runProgram() {
         }
         addStudent(id, name);
         displaySubjects(name);
-        enrollSubjects(id);
+        char *enrolledSubjects = enrollSubjects(id);
+        generateHTI(id, enrolledSubjects);
+        delete[] enrolledSubjects;
     } else {
         system("clear");
         cout << "\n\tBienvenid@ " << name << endl;

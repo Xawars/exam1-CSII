@@ -43,10 +43,11 @@ void displaySubjects(char *name) {
     }
 }
 
-void enrollSubjects(const char *id) {
+char *enrollSubjects(const char *id) {
     const int bufferSize = 100;
     char subjectCode[10];
-    char enrolledSubjects[1000] = "";
+    char *enrolledSubjects = new char[1000];
+    enrolledSubjects[0] = '\0';
     int totalCredits = 0;
     bool finished = false;
 
@@ -121,6 +122,7 @@ void enrollSubjects(const char *id) {
                     " Por favor, intente nuevamente." << endl;
         }
     }
+    return enrolledSubjects;
 }
 
 
@@ -179,6 +181,3 @@ bool isSubjectEnrolled(const char *code, const char *enrolledSubjects) {
 
     return false;
 }
-
-
-

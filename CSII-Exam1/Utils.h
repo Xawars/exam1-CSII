@@ -10,5 +10,8 @@ void customStrcpy(char *destination, const char *source);
 int customStrlen(const char *str);
 
 bool compareSubjectCodes(const char *code1, const char *code2);
+void parseSubjectLine(const char *line, char *subjectCode,
+                      char *subjectName, int &credits,
+                      int &theoreticalHours, int &practicalHours);
 
 #endif // UTILS_H
