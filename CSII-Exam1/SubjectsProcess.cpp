@@ -60,6 +60,8 @@ void enrollSubjects(const char *id) {
         if (getSubjectDetails(subjectCode, subjectDetails,
                               subjectCredits)){
             if (!isSubjectEnrolled(subjectCode, enrolledSubjects)) {
+
+
                 if (totalCredits + subjectCredits <= 16) {
 
                     totalCredits += subjectCredits;
@@ -67,29 +69,10 @@ void enrollSubjects(const char *id) {
                     ofstream file(id, ios::app);
 
                     if (file.is_open()) {
-                        //file << subjectDetails << endl;
                         char modifiedSubjectDetails[bufferSize];
                         customStrcpy(modifiedSubjectDetails, subjectCode);
                         customStrcat(modifiedSubjectDetails, ",");
-
-                        int commaCount = 0;
-                        int srcIndex = 0;
-                        int destIndex = customStrlen(modifiedSubjectDetails);
-                        while (subjectDetails[srcIndex] != '\0') {
-                            if (subjectDetails[srcIndex] == ',') {
-                                commaCount++;
-                            }
-
-                            // Copia la cadena hasta la segunda coma
-                            if (commaCount < 1 || commaCount >= 4) {
-                                modifiedSubjectDetails[destIndex++] =
-                                    subjectDetails[srcIndex];
-                            }
-                            srcIndex++;
-                        }
-
-                        modifiedSubjectDetails[destIndex] = '\0';
-                        //customStrcat(modifiedSubjectDetails, subjectDetails);
+                        customStrcat(modifiedSubjectDetails, subjectDetails);
 
                         file << modifiedSubjectDetails << endl;
                         customStrcat(enrolledSubjects, modifiedSubjectDetails);
@@ -126,6 +109,7 @@ void enrollSubjects(const char *id) {
                          << "Se terminará el proceso de matrícula." << endl;
                                 finished = true;
                 }
+
 
             } else {
                 cout << "La materia con el código " << subjectCode
@@ -180,7 +164,6 @@ bool getSubjectDetails(const char *code, char *subjectDetails,
     return false;
 }
 
-
 bool isSubjectEnrolled(const char *code, const char *enrolledSubjects) {
 
     for (int i = 0; enrolledSubjects[i] != '\0'; i++) {
@@ -196,3 +179,6 @@ bool isSubjectEnrolled(const char *code, const char *enrolledSubjects) {
 
     return false;
 }
+
+
+
