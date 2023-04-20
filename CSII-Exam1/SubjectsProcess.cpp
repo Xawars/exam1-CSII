@@ -92,10 +92,9 @@ char *enrollSubjects(const char *id) {
                     if (totalCredits >= 8) {
                         do {
                             cout << "\t¿Deseas matricular otra materia? (S/N): ";
-                                    cin >> decision;
+                            cin >> decision;
 
                             // Limpiar el búfer
-
                             while (cin.get() != '\n');
                         } while (decision != 'S' && decision != 's' &&
                                  decision != 'N' && decision != 'n');
